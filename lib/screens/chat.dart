@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat/constants.dart';
+import 'package:flutter_chat/store/constants.dart';
 
 class ChatScreen extends StatefulWidget {
   static String route = "chat";
