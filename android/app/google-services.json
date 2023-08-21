@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "224330472941",
-    "project_id": "flutter-cf369",
-    "storage_bucket": "flutter-cf369.appspot.com"
+    "project_number": "755012531996",
+    "project_id": "flutter-chat-b2331",
+    "storage_bucket": "flutter-chat-b2331.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:224330472941:android:5abacff2fa964cf8cfdbe4",
+        "mobilesdk_app_id": "1:755012531996:android:ffdc29be0ad02655c0acd9",
         "android_client_info": {
-          "package_name": "com.victoria.flutter_chat"
+          "package_name": "com.vladislav.flutter_chat"
         }
       },
       "oauth_client": [
         {
-          "client_id": "224330472941-65jm3gurjv2p1upnacml5ifur86pq531.apps.googleusercontent.com",
+          "client_id": "755012531996-3jdum88qdurbscevk9lt407ul7fcvpuh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAW87U-suibF98EUoWi3TkWeu1FFrNKIas"
+          "current_key": "AIzaSyAQBw57Vy54frVZ1eUS2vxNQsecDoqWH4I"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "224330472941-65jm3gurjv2p1upnacml5ifur86pq531.apps.googleusercontent.com",
+              "client_id": "755012531996-3jdum88qdurbscevk9lt407ul7fcvpuh.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
