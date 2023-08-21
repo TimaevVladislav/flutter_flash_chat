@@ -63,7 +63,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       decoration: kMessageTextFieldDecoration,
                     ),
                   ),
-                  FloatingActionButton(
+                  FilledButton(
                     onPressed: () {
                       //Implement send functionality.
                     },
