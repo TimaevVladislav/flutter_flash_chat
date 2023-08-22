@@ -20,6 +20,7 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     getCurrentUser();
+    messageStream();
   }
 
   void getCurrentUser() async {
@@ -27,6 +28,21 @@ class _ChatScreenState extends State<ChatScreen> {
     if (user != null) {
       logged = user;
     }
+  }
+
+  void messageStream() async {
+    await for (var snapshot in firestore.collection("messages").snapshots()) {
+      for (var message in snapshot.docs) {
+        print(message.data());
+      }
+    }
+  }
+
+  void storeMessage() async {
+    firestore
+        .collection("messages")
+        .add({"title": message, "user": logged.email});
+    message = "";
   }
 
   @override
@@ -50,6 +66,27 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            StreamBuilder<QuerySnapshot>(
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    ListView(
+                      children:
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
+                        Map<String, dynamic> data =
+                            document.data()! as Map<String, dynamic>;
+                        return ListTile(
+                          title: Text(data['title']),
+                          subtitle: Text(data['user']),
+                        );
+                      }).toList(),
+                    );
+                  }
+
+                  return Center(
+                      child: CircularProgressIndicator(
+                          backgroundColor: Colors.lightBlueAccent));
+                },
+                stream: firestore.collection("messages").snapshots()),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
@@ -65,9 +102,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   FilledButton(
                     onPressed: () {
-                      firestore
-                          .collection("messages")
-                          .add({"title": message, "user": logged.email});
+                      storeMessage();
                     },
                     child: Text(
                       'Send',
@@ -76,7 +111,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 ],
               ),
-            ),
+            )
           ],
         ),
       ),
