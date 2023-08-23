@@ -20,21 +20,12 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     getCurrentUser();
-    messageStream();
   }
 
   void getCurrentUser() async {
     final user = await auth.currentUser;
     if (user != null) {
       logged = user;
-    }
-  }
-
-  void messageStream() async {
-    await for (var snapshot in firestore.collection("messages").snapshots()) {
-      for (var message in snapshot.docs) {
-        print(message.data());
-      }
     }
   }
 
@@ -77,12 +68,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           String title = snapshot.data!.docs[index]['title'].toString();
                           String user = snapshot.data!.docs[index]['user'].toString();
 
-                          return Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Material(
-                                color: Colors.lightBlueAccent,
-                                child: Padding(padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0), child: Text("$title $user"))
-                              ));
+                          return Padding(padding: EdgeInsets.all(10.0), child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: <Widget>[Text(user, style: TextStyle(fontSize: 12.0, color: Colors.black54)), Material(elevation: 5.0, borderRadius: BorderRadius.circular(30.0), color: Colors.lightBlueAccent, child: Padding(padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0), child: Text("$title $user")))]));
                         });
                   }
 
@@ -96,11 +82,10 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
-                      onChanged: (value) {
-                        message = value;
-                      },
-                      decoration: kMessageTextFieldDecoration
-                    ),
+                        onChanged: (value) {
+                          message = value;
+                        },
+                        decoration: kMessageTextFieldDecoration),
                   ),
                   FilledButton(
                     onPressed: () {
