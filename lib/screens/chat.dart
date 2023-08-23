@@ -69,17 +69,17 @@ class _ChatScreenState extends State<ChatScreen> {
             StreamBuilder<QuerySnapshot>(
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    ListView(
-                      children:
-                          snapshot.data!.docs.map((DocumentSnapshot document) {
-                        Map<String, dynamic> data =
-                            document.data()! as Map<String, dynamic>;
-                        return ListTile(
-                          title: Text(data['title']),
-                          subtitle: Text(data['user']),
-                        );
-                      }).toList(),
-                    );
+                    return ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Row(children: <Widget>[
+                            Text(
+                                snapshot.data!.docs[index]['title'].toString()),
+                            Text(snapshot.data!.docs[index]['user'].toString())
+                          ]);
+                        });
                   }
 
                   return Center(
