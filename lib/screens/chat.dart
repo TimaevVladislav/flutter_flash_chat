@@ -39,10 +39,12 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void storeMessage() async {
-    firestore
-        .collection("messages")
-        .add({"title": message, "user": logged.email});
-    message = "";
+    if (message != "") {
+      firestore
+          .collection("messages")
+          .add({"title": message, "user": logged.email});
+      message = "";
+    }
   }
 
   @override
