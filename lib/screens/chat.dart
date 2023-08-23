@@ -40,9 +40,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void storeMessage() async {
     if (message != "") {
-      firestore
-          .collection("messages")
-          .add({"title": message, "user": logged.email});
+      firestore.collection("messages").add({"title": message, "user": logged.email});
       message = "";
     }
   }
@@ -76,17 +74,19 @@ class _ChatScreenState extends State<ChatScreen> {
                         shrinkWrap: true,
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return Row(children: <Widget>[
-                            Text(
-                                snapshot.data!.docs[index]['title'].toString()),
-                            Text(snapshot.data!.docs[index]['user'].toString())
-                          ]);
+                          String title = snapshot.data!.docs[index]['title'].toString();
+                          String user = snapshot.data!.docs[index]['user'].toString();
+
+                          return Padding(
+                              padding: EdgeInsets.all(10.0),
+                              child: Material(
+                                color: Colors.lightBlueAccent,
+                                child: Padding(padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0), child: Text("$title $user"))
+                              ));
                         });
                   }
 
-                  return Center(
-                      child: CircularProgressIndicator(
-                          backgroundColor: Colors.lightBlueAccent));
+                  return Center(child: CircularProgressIndicator(backgroundColor: Colors.lightBlueAccent));
                 },
                 stream: firestore.collection("messages").snapshots()),
             Container(
@@ -99,17 +99,14 @@ class _ChatScreenState extends State<ChatScreen> {
                       onChanged: (value) {
                         message = value;
                       },
-                      decoration: kMessageTextFieldDecoration,
+                      decoration: kMessageTextFieldDecoration
                     ),
                   ),
                   FilledButton(
                     onPressed: () {
                       storeMessage();
                     },
-                    child: Text(
-                      'Send',
-                      style: kSendButtonTextStyle,
-                    ),
+                    child: Text('Send', style: kSendButtonTextStyle),
                   ),
                 ],
               ),
