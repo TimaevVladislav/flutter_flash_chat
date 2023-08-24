@@ -54,7 +54,7 @@ class _ChatScreenState extends State<ChatScreen> {
             StreamBuilder<QuerySnapshot>(
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return ListView.builder(
+                    return Flexible(child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         itemCount: snapshot.data!.docs.length,
@@ -63,7 +63,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           String user = snapshot.data!.docs[index]['user'].toString();
 
                           return Padding(padding: EdgeInsets.all(10.0), child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: <Widget>[Text(user, style: TextStyle(fontSize: 12.0, color: Colors.black54)), Material(elevation: 5.0, borderRadius: BorderRadius.circular(30.0), color: Colors.lightBlueAccent, child: Padding(padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0), child: Text("$title $user")))]));
-                        });
+                        }));
                   }
 
                   return Center(child: CircularProgressIndicator(backgroundColor: Colors.lightBlueAccent));
