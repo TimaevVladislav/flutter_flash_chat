@@ -13,6 +13,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
+  final TextEditingController messageController = TextEditingController();
   late User logged;
   late String message;
 
@@ -26,13 +27,6 @@ class _ChatScreenState extends State<ChatScreen> {
     final user = await auth.currentUser;
     if (user != null) {
       logged = user;
-    }
-  }
-
-  void storeMessage() async {
-    if (message != "") {
-      firestore.collection("messages").add({"title": message, "user": logged.email});
-      message = "";
     }
   }
 
@@ -82,6 +76,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                        controller: messageController,
                         onChanged: (value) {
                           message = value;
                         },
@@ -89,7 +84,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   FilledButton(
                     onPressed: () {
-                      storeMessage();
+                      firestore.collection("messages").add({"title": message, "user": logged.email});
+                      messageController.clear();
                     },
                     child: Text('Send', style: kSendButtonTextStyle),
                   ),
