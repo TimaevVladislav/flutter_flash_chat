@@ -51,8 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onChanged: (value) {
                     email = value;
                   },
-                  decoration:
-                      inputDecoration.copyWith(hintText: "Enter your email"),
+                  decoration: inputDecoration.copyWith(hintText: "Enter your email"),
                 ),
                 SizedBox(
                   height: 8.0,
@@ -63,8 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onChanged: (value) {
                     password = value;
                   },
-                  decoration:
-                      inputDecoration.copyWith(hintText: "Enter your password"),
+                  decoration: inputDecoration.copyWith(hintText: "Enter your password"),
                 ),
                 SizedBox(
                   height: 24.0,
@@ -75,8 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () async {
                       try {
                         setLoading(true);
-                        final user = await auth.signInWithEmailAndPassword(
-                            email: email, password: password);
+                        final user = await auth.signInWithEmailAndPassword(email: email, password: password);
 
                         if (user != null) {
                           setLoading(false);
